@@ -1,7 +1,7 @@
 <div id="everything">
   
   <p id="location">
-    <%= @last.city %>
+    <%= [@last.city, @last.country].reject(&:nil?).join(', ') %>
   </p>
   
 </div>
