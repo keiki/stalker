@@ -20,7 +20,7 @@ module TwitterStalker
   def self.last_location
     self.list.each do |tweet|
       if tweet.geo? && (lat = tweet.geo.coordinates.first) && (lng = tweet.geo.coordinates.last)
-        geo = Geocoder.search([lat, lng].join(',')).first #wishful thinking that first is most relevant?
+        geo = Geocoder.search([lat, lng].join(',')).first
         
         return {
           when: tweet.created_at,

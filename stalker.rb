@@ -38,7 +38,9 @@ if auth #this is first because it should only be on my local and blah blah blah
   end
   
   if fb = auth['facebook']
-    
+    facebook = {
+      token: fb['token']
+    }
   end
 end
 
@@ -51,12 +53,15 @@ twitter[:secret] ||= ENV['TWITTER_SECRET']
 twitter[:accesstoken] ||= ENV['TWTTER_ACCESSTOKEN']
 twitter[:accesssecret] ||= ENV['TWITTER_ACCESSSECRET']
 
+facebook[:token] ||= ENV['FACEBOOK_TOKEN']
+
 INSTAGRAM = instagram
 FACEBOOK = facebook
 TWITTER = twitter
 
 InstagramStalker.start(INSTAGRAM[:id], INSTAGRAM[:secret], INSTAGRAM[:me]) #this looks silly. why did I make this a hash. welp, at least it's verbose.
 TwitterStalker.start(TWITTER[:appid], TWITTER[:secret], TWITTER[:accesstoken], TWITTER[:accesssecret])
+FacebookStalker.start(FACEBOOK[:token])
 
 get '/' do
   ':3'

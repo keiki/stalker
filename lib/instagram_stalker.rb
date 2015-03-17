@@ -8,14 +8,13 @@ module InstagramStalker
       config.client_secret = secret
     end
   
-    @me = me
+    @client = Instagram.client(:access_token => me)
   end
   
-  attr_reader :me
+  attr_reader :client
   
   def self.list
-    client = Instagram.client(:access_token => @me)
-    items = client.user_recent_media rescue [] #blah blah blah rescue something real
+    items = @client.user_recent_media rescue [] #blah blah blah rescue something real
   end
   
   def self.last_location
