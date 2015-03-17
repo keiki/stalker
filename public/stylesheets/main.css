@@ -1,0 +1,2 @@
+html,body{margin:0;padding:0;height:100%;background-color:white;font-family:'Lato', helvetica, sans-serif}html #everything,body #everything{height:100%}html #everything #location,body #everything #location{width:50%;margin:0 auto;position:relative;top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%);text-align:center;font-size:4em;font-weight:100}
+/*# sourceMappingURL=main.css.map */

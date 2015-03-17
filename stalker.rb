@@ -2,6 +2,14 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'yaml'
 
+require './config/env'
+
+require './models'
+
+require './lib/instagram_stalker'
+require './lib/twitter_stalker'
+require './lib/facebook_stalker'
+
 enable :sessions
 
 #set keys
@@ -22,10 +30,10 @@ if auth #this is first because it should only be on my local and blah blah blah
   
   if t = auth['twitter']
     twitter = {
-      appid: t['appid']
-      secret: t['appsecret']
-      accesstoken: t['accesstoken']
-      accesssecret: t'accesssecret']
+      appid: t['appid'],
+      secret: t['appsecret'],
+      accesstoken: t['accesstoken'],
+      accesssecret: t['accesssecret']
     }
   end
   
@@ -34,8 +42,8 @@ if auth #this is first because it should only be on my local and blah blah blah
   end
 end
 
-instagram[:id] ||= ENV['INSTAGRAM_ID'],
-instagram[:secret] ||= ENV['INSTAGRAM_SECRET'],
+instagram[:id] ||= ENV['INSTAGRAM_ID']
+instagram[:secret] ||= ENV['INSTAGRAM_SECRET']
 instagram[:me] ||= ENV['INSTAGRAM_ME']
 
 twitter[:appid] ||= ENV['TWITTER_APPID']
@@ -47,18 +55,32 @@ INSTAGRAM = instagram
 FACEBOOK = facebook
 TWITTER = twitter
 
+InstagramStalker.start(INSTAGRAM[:id], INSTAGRAM[:secret], INSTAGRAM[:me]) #this looks silly. why did I make this a hash. welp, at least it's verbose.
+
 get '/' do
   ':3'
+  
+  @last = CheckIn.order(when: :desc).first
+  
+  erb :index
 end
 
 get '/stalk' do
   # do all the work
-end
-
-get '/stalk/instagram' do
   
-end
-
-get '/stalk/twitter' do
+  ig = InstagramStalker.last_location
+  t = nil
+  fb = nil
   
+  lasts = [ig, t, fb].reject(&:nil?)
+  recent = lasts.sort{|x, y| x[:date] <=> y[:date]}.last
+  
+  last = CheckIn.order(when: :desc).first
+  
+  if !last || (last.when < recent[:when])
+    CheckIn.create(when: recent[:when], city: recent[:city], state: recent[:state], country: recent[:country], continent: recent[:continent], medium: recent[:medium])
+  end
+  
+  status 200
+  body ''
 end

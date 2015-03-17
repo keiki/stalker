@@ -9,3 +9,4 @@ gem 'pg'
 gem 'geocoder'
 gem "activerecord"
 gem "sinatra-activerecord"
+gem 'sass'
