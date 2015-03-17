@@ -5,3 +5,7 @@ gem 'sinatra'
 gem 'koala'
 gem 'instagram'
 gem 'twitter'
+gem 'pg'
+gem 'geocoder'
+gem "activerecord"
+gem "sinatra-activerecord"
