@@ -64,8 +64,6 @@ TwitterStalker.start(TWITTER[:appid], TWITTER[:secret], TWITTER[:accesstoken], T
 FacebookStalker.start(FACEBOOK[:token])
 
 get '/' do
-  ':3'
-  
   @last = CheckIn.order(when: :desc).first
   
   erb :index
@@ -83,7 +81,7 @@ get '/stalk' do
   
   last = CheckIn.order(when: :desc).first
   
-  if !last || (last.when < recent[:when])
+  if recent && (!last || (last.when < recent[:when]))
     CheckIn.create(when: recent[:when], city: recent[:city], state: recent[:state], country: recent[:country], continent: recent[:continent], medium: recent[:medium])
   end
   
