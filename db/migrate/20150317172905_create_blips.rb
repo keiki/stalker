@@ -1,6 +1,6 @@
-class CreateCheckins < ActiveRecord::Migration
+class CreateBlips < ActiveRecord::Migration
   def change
-    create_table :check_ins do |t|
+    create_table :blips do |t|
       t.string :city
       t.string :state
       t.string :country

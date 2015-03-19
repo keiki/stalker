@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20150317173832) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "check_ins", force: true do |t|
+  create_table "blips", force: true do |t|
     t.string   "city"
     t.string   "state"
     t.string   "country"
@@ -27,6 +27,6 @@ ActiveRecord::Schema.define(version: 20150317173832) do
     t.datetime "updated_at"
   end
 
-  add_index "check_ins", ["when"], name: "index_check_ins_on_when", using: :btree
+  add_index "blips", ["when"], name: "index_blips_on_when", using: :btree
 
 end

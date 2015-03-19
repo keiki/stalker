@@ -64,13 +64,13 @@ TwitterStalker.start(TWITTER[:appid], TWITTER[:secret], TWITTER[:accesstoken], T
 FacebookStalker.start(FACEBOOK[:token])
 
 get '/' do
-  @last = CheckIn.order(when: :desc).first
+  @last = Blip.order(when: :desc).first
   
   erb :index
 end
 
 get '/stalk' do
-  # do all the work
+  # do all the work; poll once an hour I guess?
   
   ig = InstagramStalker.last_location
   t = TwitterStalker.last_location
@@ -79,10 +79,10 @@ get '/stalk' do
   lasts = [ig, t, fb].reject(&:nil?)
   recent = lasts.sort{|x, y| x[:date] <=> y[:date]}.last
   
-  last = CheckIn.order(when: :desc).first
+  last = Blip.order(when: :desc).first
   
   if recent && (!last || (last.when < recent[:when]))
-    CheckIn.create(when: recent[:when], city: recent[:city], state: recent[:state], country: recent[:country], continent: recent[:continent], medium: recent[:medium])
+    Blip.create(when: recent[:when], city: recent[:city], state: recent[:state], country: recent[:country], continent: recent[:continent], medium: recent[:medium])
   end
   
   status 200
