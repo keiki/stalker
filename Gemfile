@@ -10,3 +10,5 @@ gem 'geocoder'
 gem "activerecord"
 gem "sinatra-activerecord"
 gem 'sass'
+
+gem 'rspec'

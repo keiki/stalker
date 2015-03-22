@@ -14,7 +14,11 @@ module InstagramStalker
   attr_reader :client
   
   def self.list
-    items = @client.user_recent_media rescue [] #blah blah blah rescue something real
+    if @client
+      @client.user_recent_media rescue [] #blah blah blah rescue something real
+    else
+      []
+    end
   end
   
   def self.last_location

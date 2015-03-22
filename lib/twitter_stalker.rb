@@ -14,7 +14,11 @@ module TwitterStalker
   attr_reader :client
   
   def self.list
-    @client.user_timeline
+    if @client
+      @client.user_timeline
+    else
+      []
+    end
   end
   
   def self.last_location

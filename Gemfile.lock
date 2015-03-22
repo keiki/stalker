@@ -18,6 +18,7 @@ GEM
     arel (5.0.1.20140414130214)
     buftok (0.2.0)
     builder (3.2.2)
+    diff-lcs (1.2.5)
     equalizer (0.0.9)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
@@ -49,6 +50,19 @@ GEM
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
+    rspec (3.2.0)
+      rspec-core (~> 3.2.0)
+      rspec-expectations (~> 3.2.0)
+      rspec-mocks (~> 3.2.0)
+    rspec-core (3.2.2)
+      rspec-support (~> 3.2.0)
+    rspec-expectations (3.2.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.2.0)
+    rspec-mocks (3.2.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.2.0)
+    rspec-support (3.2.2)
     sass (3.4.13)
     simple_oauth (0.2.0)
     sinatra (1.4.5)
@@ -83,6 +97,7 @@ DEPENDENCIES
   instagram
   koala
   pg
+  rspec
   sass
   sinatra
   sinatra-activerecord

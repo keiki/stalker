@@ -18,13 +18,21 @@ html, body {
   #everything {
     height: 100%;
     
-    #location {
+    #display {
       width: 50%;
       margin: 0 auto;
       @include vertical-align;
       text-align: center;
-      font-size: 4em;
-      font-weight: 100;
+      
+      h1 {
+        font-size: 4em;
+        font-weight: 100;
+      }
+      
+      p {
+        font-size: 1em;
+        font-weight: 100;
+      }
     }
   }
 }

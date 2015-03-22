@@ -1,7 +1,14 @@
 <div id="everything">
   
-  <p id="location">
-    <%= [@last.city, @last.country].reject(&:nil?).join(', ') %>
-  </p>
+  <div id="display">
+    <h1>
+      <%= [@last.city, @last.country].reject(&:nil?).join(', ') %>
+    </h1>
+  
+    <p>
+      as of
+      <%= @last.when.strftime("%d/%m/%Y") %>
+    </p>
+  </div>
   
 </div>
