@@ -6,33 +6,27 @@ end
 
 module FacebookStalker
   def self.start(appid, appsecret)
-    @appid = appid
-    @appsecret = appsecret
+    @@appid = appid
+    @@appsecret = appsecret
     
-    @token = FacebookKey.last.key rescue nil
+    @@token = FacebookKey.last.key rescue nil
     
-    @graph = Koala::Facebook::API.new(@token)
+    @@graph = Koala::Facebook::API.new(@token)
   end
   
-  attr_reader :appid
-  attr_reader :appsecret
-  
-  attr_reader :token
-  attr_reader :graph
-  
   def self.authenticate
-    @oauth = Koala::Facebook::OAuth.new(@appid, @appsecret)
-    @token = @oauth.exchange_access_token_info(@token)["access_token"]
+    @@oauth = Koala::Facebook::OAuth.new(@@appid, @@appsecret)
+    @@token = @oauth.exchange_access_token_info(@@token)["access_token"]
     
-    FacebookKey.create(:key => @token)
+    FacebookKey.create(:key => @@token)
     
-    @graph = Koala::Facebook::API.new(@token)
+    @@graph = Koala::Facebook::API.new(@@token)
   end
   
   def self.list
-    if @graph
+    if @@graph
       begin
-        @graph.get_connections("me", "posts")
+        @@graph.get_connections("me", "posts")
       rescue Koala::Facebook::AuthenticationError
         self.authenticate
         

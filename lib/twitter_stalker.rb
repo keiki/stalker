@@ -3,7 +3,7 @@ require 'geocoder'
 
 module TwitterStalker
   def self.start(key, secret, accesstoken, accesssecret)
-    @client = Twitter::REST::Client.new do |config|
+    @@client = Twitter::REST::Client.new do |config|
       config.consumer_key        = key
       config.consumer_secret     = secret
       config.access_token        = accesstoken
@@ -11,11 +11,9 @@ module TwitterStalker
     end
   end
   
-  attr_reader :client
-  
   def self.list
-    if @client
-      @client.user_timeline
+    if @@client
+      @@client.user_timeline
     else
       []
     end

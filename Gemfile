@@ -12,3 +12,4 @@ gem "sinatra-activerecord"
 gem 'sass'
 
 gem 'rspec'
+gem 'rack-test'
