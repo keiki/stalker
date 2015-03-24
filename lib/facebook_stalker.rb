@@ -16,7 +16,7 @@ module FacebookStalker
   
   def self.authenticate
     @@oauth = Koala::Facebook::OAuth.new(@@appid, @@appsecret)
-    @@token = @oauth.exchange_access_token_info(@@token)["access_token"]
+    @@token = @@oauth.exchange_access_token_info(@@token)["access_token"]
     
     FacebookKey.create(:key => @@token)
     
