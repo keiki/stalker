@@ -1,14 +1,18 @@
 <div id="everything">
   
-  <div id="display">
-    <h1>
-      <%= [@last.city, @last.country].reject(&:nil?).join(', ') %>
-    </h1>
+  <% if @last %>
   
-    <p>
-      as of
-      <%= @last.when.strftime("%d/%m/%Y") %>
-    </p>
-  </div>
+    <div id="display">
+      <h1>
+        <%= [@last.city, @last.country].reject(&:nil?).join(', ') %>
+      </h1>
+  
+      <p>
+        as of
+        <%= @last.when.strftime("%d/%m/%Y") %>
+      </p>
+    </div>
+  
+  <% end %>
   
 </div>
