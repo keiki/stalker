@@ -13,3 +13,4 @@ gem 'sass'
 
 gem 'rspec'
 gem 'rack-test'
+gem 'debugger'

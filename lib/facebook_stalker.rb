@@ -6,44 +6,53 @@ end
 
 module FacebookStalker
   def self.start(appid, appsecret)
-    @@appid = appid
-    @@appsecret = appsecret
+    @appid = appid
+    @appsecret = appsecret
     
-    @@token = FacebookKey.last.key rescue nil
+    @token = FacebookKey.last.key rescue nil
     
-    @@graph = Koala::Facebook::API.new(@token)
+    @graph = Koala::Facebook::API.new(@token)
   end
   
   def self.authenticate
-    @@oauth = Koala::Facebook::OAuth.new(@@appid, @@appsecret)
-    @@token = @@oauth.exchange_access_token_info(@@token)["access_token"]
+    @oauth = Koala::Facebook::OAuth.new(@appid, @appsecret)
     
-    FacebookKey.create(:key => @@token)
+    begin
+      @token = @oauth.exchange_access_token_info(@token)["access_token"]
+      
+      FacebookKey.destroy_all
     
-    @@graph = Koala::Facebook::API.new(@@token)
+      FacebookKey.create(key: @token)
+    
+      @graph = Koala::Facebook::API.new(@token)
+    rescue Koala::Facebook::OAuthTokenRequestError
+      @graph = nil
+    end
   end
   
   def self.list
-    if @@graph
-      begin
-        @@graph.get_connections("me", "posts")
-      rescue Koala::Facebook::AuthenticationError
-        self.authenticate
-        
-        retry
+    listing = []
+    
+    begin
+      if @graph
+        listing = @graph.get_connections("me", "posts")
       end
-    else
-      []
+    rescue Koala::Facebook::AuthenticationError => e
+      self.authenticate
+      
+      retry
     end
+    
+    return listing
   end
   
   def self.last_location
     self.list.each do |post|
-      if (loc = post["place"]) && (lat = loc["location"]["latitude"]) && (loc["location"]["longitude"])
+      if (loc = post["place"]) && (lat = loc["location"]["latitude"]) && (lng = loc["location"]["longitude"])
         geo = Geocoder.search([lat, lng].join(',')).first
         
         return {
-          when: post.created_time,
+          when: post['created_time'],
           city: geo.city,
           state: geo.state,
           country: geo.country,
