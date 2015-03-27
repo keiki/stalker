@@ -47,7 +47,7 @@ namespace :stalk do
     instagram[:me] ||= ENV['INSTAGRAM_ME']
 
     twitter[:appid] ||= ENV['TWITTER_APPID']
-    twitter[:secret] ||= ENV['TWITTER_SECRET']
+    twitter[:secret] ||= ENV['TWITTER_APPSECRET']
     twitter[:accesstoken] ||= ENV['TWITTER_ACCESSTOKEN']
     twitter[:accesssecret] ||= ENV['TWITTER_ACCESSSECRET']
 
