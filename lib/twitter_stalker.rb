@@ -15,7 +15,7 @@ module TwitterStalker
     if @client
       begin
         @client.user_timeline
-      rescue Twitter::Error::Forbidden
+      rescue Twitter::Error::Forbidden, Twitter::Error::Unauthorized
         []
       end
     else
