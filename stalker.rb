@@ -1,4 +1,6 @@
 require 'sinatra'
+set :server, 'puma'
+
 require 'sinatra/activerecord'
 require 'yaml'
 

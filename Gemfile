@@ -11,5 +11,7 @@ gem "activerecord"
 gem "sinatra-activerecord"
 gem 'sass'
 
+gem 'puma'
+
 gem 'rspec'
 gem 'rack-test'
