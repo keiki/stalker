@@ -59,13 +59,18 @@ namespace :stalk do
     FacebookStalker.start(facebook[:appid], facebook[:appsecret])
     
     # do all the work; poll once an hour I guess?
-
+    
+    puts "polling Instagram"
     ig = InstagramStalker.last_location
+    
+    puts "polling Twitter"
     t = TwitterStalker.last_location
+    
+    puts "polling Facebook"
     fb = FacebookStalker.last_location
 
     lasts = [ig, t, fb].reject(&:nil?)
-    recent = lasts.sort{|x, y| x[:date] <=> y[:date]}.first
+    recent = lasts.sort{|x, y| x[:date] <=> y[:date]}.last
 
     last = Blip.order(when: :desc).first
 
