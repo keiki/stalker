@@ -69,8 +69,8 @@ namespace :stalk do
     puts "polling Facebook"
     fb = FacebookStalker.last_location
 
-    lasts = [ig, t, fb].reject(&:nil?)
-    recent = lasts.flatten.sort{|x, y| x[:date] <=> y[:date]}.last
+    lasts = [ig, t, fb].flatten.reject(&:nil?)
+    recent = lasts.sort{|x, y| x[:date] <=> y[:date]}.last
 
     last = Blip.order(when: :desc).first
 
