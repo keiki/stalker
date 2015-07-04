@@ -24,11 +24,11 @@ module TwitterStalker
   end
   
   def self.last_location
-    self.list.each do |tweet|
+    self.list.map do |tweet|
       if tweet.geo? && (lat = tweet.geo.coordinates.first) && (lng = tweet.geo.coordinates.last)
         geo = Geocoder.search([lat, lng].join(',')).first
         
-        return {
+        {
           when: tweet.created_at,
           city: geo.city,
           state: geo.state,
@@ -36,6 +36,8 @@ module TwitterStalker
           continent: nil, #come back to this
           medium: 'twitter'
         }
+      else
+        nil
       end
     end
   end
