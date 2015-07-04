@@ -70,7 +70,7 @@ namespace :stalk do
     fb = FacebookStalker.last_location
 
     lasts = [ig, t, fb].flatten.reject(&:nil?)
-    recent = lasts.sort{|x, y| x[:date] <=> y[:date]}.last
+    recent = lasts.sort{|x, y| x[:when] <=> y[:when]}.last
 
     last = Blip.order(when: :desc).first
 
